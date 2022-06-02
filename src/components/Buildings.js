@@ -1,6 +1,8 @@
 
 import { queryHelpers } from "@testing-library/react"
 import { useNavigate } from 'react-router-dom';
+import React from 'react'
+
 
 
 
@@ -9,27 +11,23 @@ const Buildings = (props) => {
 
     const navigate = useNavigate();
 
-
     let jay = []
-    let i = 100
-    for (let building in props.updBuildings){
+    for (let building in props.buildings){
         jay.push(
-            <div key={i} className="card bg-primary text-white text-center building-card col-sm-6 m-auto my-4">
+            <div key={building} className="card bg-primary text-white text-center building-card col-sm-6 m-auto my-4">
                 <div className="card-body">
-                    <h5 className="card-title">{props.updBuildings[building].address}</h5>
+                    <h5 className="card-title">{props.buildings[building].address}</h5>
                     <a onClick={()=> {
-                        props.determineBuilding(building);
-                        navigate(`/floors`);
+                        navigate(`/buildings/${building}`);
                     }} className="btn btn-light">Select</a>
                 </div>
             </div>);
-        i++
     }
 
     return(
-        <>
+        <div style={{height: "100vh"}}>
             {jay}
-        </>
+        </div>
     )
 }
 

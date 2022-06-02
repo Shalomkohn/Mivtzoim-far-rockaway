@@ -8,12 +8,12 @@ import Button from 'react-bootstrap/Button';
 
 function NextFloorBtn(props) {
     const navigate = useNavigate();
-  if(props.floor == 'floor1') return <div className='mb-2'>You finished, Congradulations!</div>
+  if(props.floorNumber <= 1) return <div className='mb-2'>You finished, Congradulations!</div>
   return (
     <div className="d-grid">
       <Button variant="primary" size="lg" onClick={()=> {
-          props.nextFloor();
-          // navigate('/floor');
+          navigate(`/buildings/${props.buildingNumber}/floors/${props.floorNumber - 1}`);
+          window.scrollTo(0, 0);
       }}>
           Next Floor<ArrowDown className='ms-3' size={25}/>
       </Button>  
