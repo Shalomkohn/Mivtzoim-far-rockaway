@@ -5,9 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeft } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import React from 'react'
-import Card from 'react-bootstrap/Card';
 import db from "../firebase"
-import { collection, onSnapshot, addDoc, doc, setDoc, deleteDoc, orderBy, query} from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query} from "firebase/firestore";
 
 
 
@@ -20,6 +19,7 @@ const Floors = (props) => {
     let {buildingNumber} = useParams()
 
     useEffect(() => {
+        //add()
         const q = query(collection(db, "buildings", buildingNumber, "floors" ),orderBy("floorNumber","asc"))
         const unsub = onSnapshot(q,(snapshot) => {setFloors(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
         return unsub;
@@ -32,9 +32,16 @@ const Floors = (props) => {
         );
     })
 
+    // const add = (data) => {
+    //     const docRef = doc(db, "buildings", buildingNumber, "floors", '1')
+    //     const payload = {name: "Floor 1", floorNumber: 1, jewsCount: 0}
+    //     setDoc(docRef, payload)
+    // }
+    
+
     return (
-        <div className="container mt-3">
-            <Button onClick={()=> navigate('/')}>
+        <div className="container py-3">
+            <Button onClick={()=>  navigate('/')}>
                 <ArrowLeft size={25}/> Buildings
             </Button>
             <ListGroup className="pt-5">

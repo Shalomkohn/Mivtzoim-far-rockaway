@@ -8,7 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import React, { useState, useEffect} from 'react';
 import db from "../firebase"
-import { collection, onSnapshot, addDoc, doc, setDoc, updateDoc} from "firebase/firestore";
+import { doc, updateDoc} from "firebase/firestore";
 
 const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
     const [color, setColor] = useState('bg-secondary')

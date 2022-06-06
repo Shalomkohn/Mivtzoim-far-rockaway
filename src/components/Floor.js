@@ -1,21 +1,16 @@
 
 import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert';
 import React from "react";
 import { useEffect, useState } from 'react';
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Card from 'react-bootstrap/Card';
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import { useNavigate, useParams } from 'react-router-dom';
-import ToggleButton from "react-bootstrap/ToggleButton";
-import { ArrowLeft, ArrowDown } from 'react-bootstrap-icons';
+import { ArrowLeft } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Door from './Door'
 import NextFloorBtn from './NextFloorBtn';
 import db from "../firebase"
-import { collection, onSnapshot, addDoc, doc, setDoc, deleteDoc, orderBy, query} from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 
 
 
@@ -27,6 +22,7 @@ const Floor = (props) => {
     let {buildingNumber, floorNumber} = useParams()
 
     useEffect(() => {
+        
         const unsub = onSnapshot(collection(db, "buildings", buildingNumber, "floors", floorNumber, "doors" ),(snapshot) => {setDoors(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
         return unsub;
     },[floorNumber])
@@ -39,17 +35,21 @@ const Floor = (props) => {
         )
     }
     
-    //  const add = (data) => {
-    //     const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber, "doors", "n")
-    //     const payload = {name: "N", jewish: "Unknown"}
-    //     setDoc(docRef, payload)
+    // ------- Code to initialize doors
+    // const add = (data) => {
+    //     const arr = ['A','B','C','D','E','F','G','H','J','K','L','M','N']
+    //     arr.map((letter) => {
+    //         const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber, "doors", letter)
+    //         const payload = {name: letter, jewish: "unknown"}
+    //         setDoc(docRef, payload)
+    //     })
+      
     // }
-    // add()
+    //add()
 
     return (
-        <section className='pt-4 bg-light'>
+        <section className='py-4' style={{background: '#dedede'}}>
             <Container>
-            
                 <Button onClick={()=> navigate(`/buildings/${buildingNumber}`)}>
                     <ArrowLeft size={25}/> Floors
                 </Button>
