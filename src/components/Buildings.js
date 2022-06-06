@@ -26,8 +26,8 @@ const Buildings = ({ buildings }) => {
     const message = currentUser ? <h1 className="text-center">your account is not yet varified</h1> : <h1 className="text-center">Please Log In</h1>;
 
     return(
-        <div className="container pb-3">
-            { buildings.length === 0 ? message : jay }
+        <div className="container p-3">
+            { buildings.length === 0 ? <div style={{height: '100vh'}}>{message}</div> : jay }
         </div>
     )
 }

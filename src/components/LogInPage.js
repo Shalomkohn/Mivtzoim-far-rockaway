@@ -29,7 +29,7 @@ export const LogInPage = ({ getBuildings }) => {
 
 
     return (
-        <div style={{height: '100vh'}}>      
+        <div className="container p-3" style={{height: '100vh'}}>      
             <Form>
                 <h3 className="mb-3">Log in with your account</h3>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -80,7 +80,7 @@ export const CreateAccountPage = ({ getBuildings }) => {
 
 
     return (
-        <div style={{height: '100vh'}}>      
+        <div className="container p-3" style={{height: '100vh'}}>      
             <Form>
                 <h3 className="mb-3">Create your account</h3>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
