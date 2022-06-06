@@ -1,5 +1,5 @@
 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import React from 'react'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
@@ -9,12 +9,15 @@ import { useState } from 'react';
 const Navbar = () => {
     const [loading, setLoading] = useState(false)
     const currentUser = useAuth()
+    const navigate = useNavigate()
+
 
     //Log Out
     async function handleLogOut(){
         setLoading(true)
         try {
           await logout()
+          navigate('/')
           document.location.reload()
         } catch {
           alert('Error logging out')
