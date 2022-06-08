@@ -41,11 +41,11 @@ const Floors = (props) => {
 
     return (
         <div className="container py-3">
-            <Button onClick={()=>  navigate('/')}>
-                <ArrowLeft size={25}/> Buildings
+            <Button style={{backgroundColor: 'rgb(3, 165, 252)', border: 'none'}} onClick={()=>  navigate('/')}>
+                <ArrowLeft size={25} /> Buildings
             </Button>
-            <ListGroup className="pt-5">
-                <ListGroup.Item className="display-5 text-center">{props.buildings[buildingNumber].address}</ListGroup.Item>
+            <ListGroup className="pt-3">
+                <ListGroup.Item className="display-5 text-center bg-light">{props.buildings[buildingNumber].address}</ListGroup.Item>
                 <div>
                     {jay}
                 </div>    

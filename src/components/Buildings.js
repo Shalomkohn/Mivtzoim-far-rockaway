@@ -1,6 +1,8 @@
 
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../firebase";
+import worried from '../images/worried.png'
+import verify from '../images/verify.png'
 
 import React from 'react'
 
@@ -13,17 +15,25 @@ const Buildings = ({ buildings }) => {
     let jay = [];
     buildings.map((building, index) => {
         jay.push(
-            <div key={index} className="card bg-primary text-white text-center building-card col-sm-6 m-auto my-4">
-                <div className="card-body">
-                    <h5 className="card-title">{building.address}</h5>
-                    <a onClick={()=> {
-                        navigate(`/buildings/${building.id}`);
-                    }} className="btn btn-light">Select</a>
+            <div key={index} className="card text-white text-center building-card col-sm-6 mx-2 my-5">
+                <div className="card-body bgLightBlue d-flex justify-content-between align-items-center">
+                    <h5 className="card-title fontRegular m-0">{building.address}</h5>
+                    <a onClick={()=> navigate(`/buildings/${building.id}`)} className="btn btn-light text-secondary">Select</a>
                 </div>
             </div>);
     })
 
-    const message = currentUser ? <h1 className="text-center">your account is not yet varified</h1> : <h1 className="text-center">Please Log In</h1>;
+    const message = currentUser ? 
+    <div className="container text-center">
+        <h1 className="text-center my-3">please contact the admin</h1>
+        <img className='w-50 my-3' src={verify}></img>
+        <h1 className="text-center my-3">we just have to verify your account</h1>
+    </div>
+     :
+    <div className="container text-center">
+        <h1 className="text-center">oh...<br/> you have to log in</h1>
+        <img className='w-50' src={worried}></img>
+    </div>
 
     return(
         <div className="container p-3">

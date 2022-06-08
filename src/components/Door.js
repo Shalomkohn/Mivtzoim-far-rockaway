@@ -19,6 +19,7 @@ const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
 
 
     const handleShow = () => setShow(true);
+    
     const handleClose = () => {
         setShow(false);
         const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber, "doors", doorObj.id)
@@ -29,7 +30,7 @@ const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
     useEffect(()=>{if(doorObj.jewish == 'jewish'){
                 setColor('rgba(100, 255, 0, 0.5)')
             }else if(doorObj.jewish == 'unknown'){
-                setColor('#fff')
+                setColor('#f8f9fa')
             }else if(doorObj.jewish == 'not jewish'){
                 setColor('rgba(255, 0, 74, 0.4)')
             }}
@@ -68,20 +69,20 @@ const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
 {/* Card ====================================================================================================================== */}
             <Col xs={12} className="mb-4">
                 <Card className='shadow-sm'>
-                    <h1 className='bg-light m-0 d-block h-100'>{doorObj.name}</h1>  
-                    <div className={`p-2 d-flex justify-content-between align-items-center`} style={{backgroundColor: color}}>
-                        <Button variant={buttonVariant} onClick={handleShow}>
+                    <h6 style={{backgroundColor: color}} className='p-1 m-0 border-bottom'>{doorObj.jewish}</h6>
+                    <div className="p-1 d-flex justify-content-between align-items-center bg-light">
+                        <Button className='border' variant={buttonVariant} onClick={handleShow}>
                             {buttonValue}
                         </Button>
-                        <h6 className='m-0'>{doorObj.jewish}</h6>
-                        <DropdownBotton variant='light' key={doorObj.name} title='UPDATE'>
-                            <Dropdown.Item onClick={()=> {
+                        <h1 className='m-0 d-block h-100'>{doorObj.name}</h1>  
+                        <DropdownBotton className='border' variant='light' key={doorObj.name} title='Update'>
+                            <Dropdown.Item className='text-center' onClick={()=> {
                                     updateJewish('not jewish')
                                 }} eventKey="1">Not Jewish</Dropdown.Item>
-                            <Dropdown.Item onClick={()=> {
+                            <Dropdown.Item className='text-center' onClick={()=> {
                                     updateJewish('unknown')
                                 }} eventKey="2">Unknown</Dropdown.Item>
-                            <Dropdown.Item onClick={()=> {
+                            <Dropdown.Item className='text-center' onClick={()=> {
                                     updateJewish('jewish')
                                 }} eventKey="3">Jewish</Dropdown.Item>
                         </DropdownBotton>

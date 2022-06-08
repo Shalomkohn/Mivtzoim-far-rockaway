@@ -29,7 +29,7 @@ export const LogInPage = ({ getBuildings }) => {
 
 
     return (
-        <div className="container p-3" style={{height: '100vh'}}>      
+        <div className="container p-4" style={{height: '100vh'}}>      
             <Form>
                 <h3 className="mb-3">Log in with your account</h3>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -44,8 +44,8 @@ export const LogInPage = ({ getBuildings }) => {
                 <Button variant="primary" onClick={handleLogin} disabled={loading || currentUser}>
                     Log In
                 </Button>
-                <h3 className="mt-5">Don't have an account?</h3>
-                <Button variant="primary" onClick={()=> navigate('/create-account')} disabled={loading || currentUser}>
+                <h3 className="mt-5">First time using Meevo?</h3>
+                <Button variant="secondary" onClick={()=> navigate('/create-account')} disabled={loading || currentUser}>
                     Sign Up
                 </Button>
             </Form>

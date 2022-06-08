@@ -4,7 +4,7 @@ import React from "react";
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'react-bootstrap-icons';
+import { ArrowLeftShort } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Door from './Door'
@@ -47,14 +47,19 @@ const Floor = (props) => {
     // }
     //add()
 
+
     return (
-        <section className='py-4' style={{background: '#dedede'}}>
+        <section className='py-4' >
             <Container>
-                <Button onClick={()=> navigate(`/buildings/${buildingNumber}`)}>
-                    <ArrowLeft size={25}/> Floors
-                </Button>
-                <Container className="my-3 text-center">
-                    <Card body className="display-4 my-4 bg-light">{`Floor ${floorNumber}`}</Card>
+                <Container className="mb-3 text-center">
+                    <div className="d-flex justify-content-between mb-4 align-items-center">
+                        <Button  className='btn-light btn-sm border border-secondary d-flex align-items-center' onClick={()=> navigate(`/buildings/${buildingNumber}`)}>
+                            <ArrowLeftShort size={25}/>
+                            <div>Floors</div>
+                        </Button>
+                        <div className="display-1 me-3">{`Floor ${floorNumber}`}</div>
+                    </div>
+                    {/* <Card body className="display-4 my-4 bg-light">{`Floor ${floorNumber}`}</Card> */}
                     <Row>
                         {jay}
                     </Row>

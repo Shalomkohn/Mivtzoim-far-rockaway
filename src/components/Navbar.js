@@ -33,12 +33,12 @@ const Navbar = () => {
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
                            {currentUser ? 
-                                <DropdownButton variant="light" id="dropdown-basic-button" title={currentUser.email}>
+                                <DropdownButton className='fontRegular' variant="light" id="dropdown-basic-button" title={currentUser.email}>
                                     <Dropdown.Item onClick={handleLogOut} disabled={loading || !currentUser }>
                                         Log Out
                                     </Dropdown.Item>
                                 </DropdownButton>
-                            : <Link className='nav-link' to="/sign-in">Sign In</Link>} 
+                            : <Link className='nav-link' to="/sign-in">Log In</Link>} 
                         </li>
                     </ul>
                     <span className="navbar-text">
