@@ -16,27 +16,31 @@ import { LogInPage, CreateAccountPage } from './components/LogInPage';
   
   function App() {
     const [buildings, setBuildings] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
       getBuildings()
     },[])
-    
+
     const getBuildings = () => {
-      const unsub = onSnapshot(collection(db, "buildings"),(snapshot) => {setBuildings(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
-      
+      setIsLoading(true)
+      const unsub = onSnapshot(collection(db, "buildings"),(snapshot) => {
+          setBuildings(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+      },
+      (error) => {
+        setIsLoading(false)
+      })
       return unsub;
     }
-
-
-
+    
   return (
     <div className="App bg-light">
       <Router>
         <Navbar/>
             <Routes>
-              <Route path='/' element={<Buildings buildings={buildings}/>}/>
+              <Route path='/' element={<Buildings isLoading={isLoading} buildings={buildings}/>}/>
               <Route path='/sign-in' element={<LogInPage getBuildings={getBuildings}/>}/>
-              <Route path='/create-account' element={<CreateAccountPage/>}/>
+              <Route path='/create-account' element={<CreateAccountPage />}/>
               <Route path='/buildings/:buildingNumber' element={<Floors buildings={buildings}/>}/>
               <Route path='/buildings/:buildingNumber/floors/:floorNumber' element={<Floor/>}/>  
               <Route path='*' element={<ErrorPage/>}/>

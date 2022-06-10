@@ -44,7 +44,7 @@ const Floors = (props) => {
             <Button style={{backgroundColor: 'rgb(3, 165, 252)', border: 'none'}} onClick={()=>  navigate('/')}>
                 <ArrowLeft size={25} /> Buildings
             </Button>
-            <ListGroup className="pt-3">
+            <ListGroup className="pt-3 m-auto"  style={{maxWidth: "600px"}}>
                 <ListGroup.Item className="display-5 text-center bg-light">{props.buildings[buildingNumber].address}</ListGroup.Item>
                 <div>
                     {jay}

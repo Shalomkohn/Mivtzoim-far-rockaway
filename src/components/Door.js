@@ -67,8 +67,8 @@ const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
             </Modal>
 
 {/* Card ====================================================================================================================== */}
-            <Col xs={12} className="mb-4">
-                <Card className='shadow-sm'>
+            <Col xs={12} md={6} lg={4} className="mb-4">
+                <Card className='shadow-sm m-2'>
                     <h6 style={{backgroundColor: color}} className='p-1 m-0 border-bottom'>{doorObj.jewish}</h6>
                     <div className="p-1 d-flex justify-content-between align-items-center bg-light">
                         <Button className='border' variant={buttonVariant} onClick={handleShow}>

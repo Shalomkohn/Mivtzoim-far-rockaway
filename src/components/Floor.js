@@ -18,11 +18,9 @@ import { collection, onSnapshot } from "firebase/firestore";
 const Floor = (props) => {
     const [doors, setDoors] = useState([])
     const navigate = useNavigate()
-
     let {buildingNumber, floorNumber} = useParams()
 
     useEffect(() => {
-        
         const unsub = onSnapshot(collection(db, "buildings", buildingNumber, "floors", floorNumber, "doors" ),(snapshot) => {setDoors(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
         return unsub;
     },[floorNumber])
@@ -49,7 +47,7 @@ const Floor = (props) => {
 
 
     return (
-        <section className='py-4' >
+        <section className='py-4'>
             <Container>
                 <Container className="mb-3 text-center">
                     <div className="d-flex justify-content-between mb-4 align-items-center">
@@ -58,12 +56,17 @@ const Floor = (props) => {
                             <div>Floors</div>
                         </Button>
                         <div className="display-1 me-3">{`Floor ${floorNumber}`}</div>
+                        <div className="d-none d-lg-block">
+                            <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
+                        </div>
                     </div>
                     {/* <Card body className="display-4 my-4 bg-light">{`Floor ${floorNumber}`}</Card> */}
                     <Row>
                         {jay}
                     </Row>
-                    <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
+                    <div className='d-grid d-lg-none'>
+                        <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
+                    </div>
                 </Container>  
             </Container>
         </section>

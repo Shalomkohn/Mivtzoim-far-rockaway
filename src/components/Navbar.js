@@ -11,7 +11,6 @@ const Navbar = () => {
     const currentUser = useAuth()
     const navigate = useNavigate()
 
-
     //Log Out
     async function handleLogOut(){
         setLoading(true)
@@ -20,7 +19,7 @@ const Navbar = () => {
           navigate('/')
           document.location.reload()
         } catch {
-          alert('Error logging out')
+            alert('Error logging out')
         }
         setLoading(false)
       }
@@ -29,7 +28,7 @@ const Navbar = () => {
         <>
             <nav className="navbar navbar-light bg-light fixed-top border-bottom border-primary ">
                 <div className="container">
-                    <Link className="navbar-brand" to="/">Meevo</Link>
+                    <Link className="navbar-brand" to="/"><span style={{fontFamily: 'georgia'}}>M</span>eevo</Link>
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item">
                            {currentUser ? 
@@ -50,8 +49,8 @@ const Navbar = () => {
             {/* to push down */}
             <nav className="navbar border-bottom">
                 <div className="container">
-                    <a className="navbar-brand" href="#">Meevo</a>
-                    <span className="navbar-text">
+                    <a className="navbar-brand text-light" href="#">Meevo</a>
+                    <span className="navbar-text text-light">
                         בס״ד
                     </span>
                 </div>
