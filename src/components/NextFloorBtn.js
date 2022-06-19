@@ -13,6 +13,7 @@ function NextFloorBtn(props) {
       <Button className='d-flex justify-content-center align-items-center btn-light border border-secondary btn-sm' onClick={()=> {
           navigate(`/buildings/${props.buildingNumber}/floors/${props.floorNumber - 1}`);
           window.scrollTo(0, 0);
+          props.countJews();
       }}>
         <div>Next Floor</div>
         <ArrowDownShort className='ms-3' size={25}/>

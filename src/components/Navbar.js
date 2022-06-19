@@ -4,12 +4,25 @@ import React from 'react'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
 import { useAuth, logout} from "../firebase";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
     const [loading, setLoading] = useState(false)
+    const [adminIsSignedIn, setAdminIsSignedIn] = useState(false)
     const currentUser = useAuth()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if(!currentUser){
+            return
+        } 
+        if(currentUser.email == 'sbk5775@gmail.com'){
+            setAdminIsSignedIn(true)
+        }
+        if(currentUser.email == 'chezykohn@gmail.com'){
+            setAdminIsSignedIn(true)
+        }
+    },[currentUser])
 
     //Log Out
     async function handleLogOut(){
@@ -23,7 +36,7 @@ const Navbar = () => {
         }
         setLoading(false)
       }
-
+    
     return (
         <>
             <nav className="navbar navbar-light bg-light fixed-top border-bottom border-primary ">
@@ -40,6 +53,7 @@ const Navbar = () => {
                             : <Link className='nav-link' to="/sign-in">Log In</Link>} 
                         </li>
                     </ul>
+                    {adminIsSignedIn && <Link to={"/verify-user"} className="btn btn-small p-0 me-2 text-secondary">verify</Link>}
                     <span className="navbar-text">
                         בס״ד
                     </span>

@@ -11,3 +11,13 @@
     background-color: rgb(3, 165, 252);
 }
 
+.jewishAnimate {
+    animation: anim 0.3s ease-out;
+}
+
+@keyframes anim {
+    100% {
+        transform: scale(1.04, 1.5);
+        opacity: 0.3;
+    }
+}

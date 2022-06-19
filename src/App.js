@@ -11,7 +11,7 @@ import { useState, useEffect} from 'react'
 import React from 'react'
 import db from "./firebase"
 import { collection, onSnapshot} from "firebase/firestore";
-import { LogInPage, CreateAccountPage } from './components/LogInPage';
+import { LogInPage, CreateAccountPage, Verify } from './components/LogInPage';
 
   
   function App() {
@@ -40,9 +40,10 @@ import { LogInPage, CreateAccountPage } from './components/LogInPage';
             <Routes>
               <Route path='/' element={<Buildings isLoading={isLoading} buildings={buildings}/>}/>
               <Route path='/sign-in' element={<LogInPage getBuildings={getBuildings}/>}/>
-              <Route path='/create-account' element={<CreateAccountPage />}/>
+              <Route path='/create-account' element={<CreateAccountPage getBuildings={getBuildings}/>}/>
               <Route path='/buildings/:buildingNumber' element={<Floors buildings={buildings}/>}/>
               <Route path='/buildings/:buildingNumber/floors/:floorNumber' element={<Floor/>}/>  
+              <Route path='/verify-user' element={<Verify/>}/>  
               <Route path='*' element={<ErrorPage/>}/>
             </Routes>
       </Router>

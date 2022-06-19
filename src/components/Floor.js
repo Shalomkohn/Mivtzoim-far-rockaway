@@ -10,24 +10,36 @@ import Row from 'react-bootstrap/Row'
 import Door from './Door'
 import NextFloorBtn from './NextFloorBtn';
 import db from "../firebase"
-import { collection, onSnapshot } from "firebase/firestore";
-
+import { collection, onSnapshot,updateDoc, doc, query, where, getDocs} from "firebase/firestore";
 
 
 
 const Floor = (props) => {
     const [doors, setDoors] = useState([])
+    const [totalJewish, setTotalJewish] = useState(null)
     const navigate = useNavigate()
     let {buildingNumber, floorNumber} = useParams()
 
     useEffect(() => {
+        countJews()
+
         const unsub = onSnapshot(collection(db, "buildings", buildingNumber, "floors", floorNumber, "doors" ),(snapshot) => {setDoors(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
         return unsub;
     },[floorNumber])
+
+    async function countJews() {
+        const querySnapshot2 = await getDocs(query(collection(db, "buildings", buildingNumber, "floors", floorNumber, 'doors'), where("jewish", "==", "jewish")));
+
+        const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber)
+        const payload = {jewsCount: querySnapshot2.size}
+        updateDoc(docRef, payload)
+    }
     
+
 
     let jay = [];
     for(let door in doors){
+        let num = 0;
         jay.push(
             <Door buildingNumber={buildingNumber} floorNumber={floorNumber} key={door} door={door} doorObj={doors[door]} />
         )
@@ -51,7 +63,10 @@ const Floor = (props) => {
             <Container>
                 <Container className="mb-3 text-center">
                     <div className="d-flex justify-content-between mb-4 align-items-center">
-                        <Button  className='btn-light btn-sm border border-secondary d-flex align-items-center' onClick={()=> navigate(`/buildings/${buildingNumber}`)}>
+                        <Button  className='btn-light btn-sm border border-secondary d-flex align-items-center' onClick={async ()=> {
+                            await countJews();
+                            navigate(`/buildings/${buildingNumber}`);
+                            }}>
                             <ArrowLeftShort size={25}/>
                             <div>Floors</div>
                         </Button>
@@ -64,8 +79,9 @@ const Floor = (props) => {
                     <Row>
                         {jay}
                     </Row>
+
                     <div className='d-grid d-lg-none'>
-                        <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
+                        <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber} countJews={countJews}/>
                     </div>
                 </Container>  
             </Container>

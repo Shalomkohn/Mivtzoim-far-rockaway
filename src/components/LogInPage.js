@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
 import Badge from 'react-bootstrap/Badge'
 import Button from 'react-bootstrap/Button';
-
+import db from "../firebase"
+import { doc, setDoc} from "firebase/firestore";
 
 
 export const LogInPage = ({ getBuildings }) => {
@@ -27,6 +28,7 @@ export const LogInPage = ({ getBuildings }) => {
           setErrorMessageVisible('visible')
         }
         setLoading(false)
+        
       }
   
 
@@ -88,6 +90,7 @@ export const CreateAccountPage = ({ getBuildings}) => {
         }
         try {
           await signup(emailRef.current.value, passwordRef.current.value)
+          getBuildings()
           navigate(`/`)
         }
         catch {
@@ -118,6 +121,44 @@ export const CreateAccountPage = ({ getBuildings}) => {
                 </Form.Group>
                 <Button variant="primary" onClick={handleSignUp} disabled={loading || currentUser}>
                     Sign Up
+                </Button>
+            </Form>
+        </div>
+    )
+}
+
+export const Verify = () => {
+    const [loading, setLoading] = useState(false)
+    const emailToAddRef = useRef()
+
+    async function handleVerify(){
+        setLoading(true)
+        try {
+            const docRef = doc(db, "users", emailToAddRef.current.value)
+            const payload = {role: 'author'}
+            await setDoc(docRef, payload)
+            alert('successfully verified user' + " " + emailToAddRef.current.value)
+        } catch {
+            alert('error verifying user')
+        }
+        
+        emailToAddRef.current.value = '';
+        setLoading(false)
+    }
+
+
+    return (
+        <div className="container p-3 vh-100" style={{maxWidth: '500px'}}>      
+            <Form>
+                <h3 className="my-3">Enter a users email to verify their account</h3>
+                <br />
+                <p>this will allow the user to use the app and update the information on any door</p>
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Control ref={emailToAddRef} type="email" placeholder="Enter email" />
+                </Form.Group>
+
+                <Button variant="primary" onClick={handleVerify} disabled={loading}>
+                    Verify User
                 </Button>
             </Form>
         </div>

@@ -1,6 +1,6 @@
 
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuth } from "../firebase";
 import worried from '../images/worried.png'
 import verify from '../images/verify.png'
@@ -9,9 +9,9 @@ import Col from 'react-bootstrap/Col'
 import React from 'react'
 
 
-
 const Buildings = ({ buildings, isLoading }) => {
     const [message, setMessage] = useState(null);
+    const emailToAddRef = useRef()
     const currentUser = useAuth();
     const navigate = useNavigate();
     
