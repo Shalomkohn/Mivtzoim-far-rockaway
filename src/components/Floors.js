@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import ListGroup  from "react-bootstrap/ListGroup"
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'react-bootstrap-icons';
+import { ArrowLeftShort } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 import React from 'react'
 import db from "../firebase"
@@ -59,8 +59,9 @@ const Floors = (props) => {
 
     return (
         <div className="container py-3">
-            <Button style={{backgroundColor: 'rgb(3, 165, 252)', border: 'none'}} onClick={()=>  navigate('/')}>
-                <ArrowLeft size={25} /> Buildings
+            <Button className="d-flex align-items-center" style={{backgroundColor: 'rgb(3, 165, 252)', border: 'none'}} onClick={()=>  navigate('/')}>
+                <ArrowLeftShort size={25} /> 
+                <div>Buildings</div>
             </Button>
 
             <ListGroup className="pt-3 m-auto"  style={{maxWidth: "600px"}}>
