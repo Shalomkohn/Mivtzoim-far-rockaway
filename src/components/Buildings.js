@@ -2,6 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { useAuth } from "../firebase";
+import { GeoAlt } from 'react-bootstrap-icons';
 import worried from '../images/worried.png'
 import verify from '../images/verify.png'
 import Row from 'react-bootstrap/Row'
@@ -47,6 +48,7 @@ const Buildings = ({ buildings, isLoading }) => {
                 <div className="card my-3 mx-lg-5 my-lg-4 text-white bg-primary">
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <h5 className="card-title fontRegular m-0">{building.address}</h5>
+                        <a className='text-white align-items-center justify-content-center text-decoration-none' href={building.addressLink}><GeoAlt className='fs-1'/></a>
                         <a onClick={()=> navigate(`/buildings/${building.id}`)} className="btn btn-light text-secondary">Select</a>
                     </div>
                 </div>
