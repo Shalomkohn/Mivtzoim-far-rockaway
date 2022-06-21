@@ -11,7 +11,7 @@ import db from "../firebase"
 import { doc, updateDoc} from "firebase/firestore";
 
 
-const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
+const Door = ({countJews, doorObj, floorNumber, buildingNumber}) => {
     const [color, setColor] = useState('bg-secondary')
     const [noteChanges, setNoteChanges] = useState(doorObj.notes)
     const [show, setShow] = useState(false);
@@ -43,6 +43,7 @@ const Door = ({door, doorObj, floorNumber, buildingNumber}) => {
         const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber, "doors", doorObj.id)
         const payload = {jewish: data}
         updateDoc(docRef, payload)
+        countJews()
 
         if(data == 'jewish'){
             setAnimation('jewishAnimate')

@@ -45,7 +45,7 @@ const Buildings = ({ buildings, isLoading }) => {
     buildings.map((building, index) => {
         mapedBuildings.push(
             <Col key={index} xs={12} md={6}>
-                <div className="card my-3 mx-lg-5 my-lg-4 text-white bg-primary">
+                <div className="card my-3 mx-lg-5 my-lg-4 text-white" style={{backgroundColor: 'rgb(3, 165, 252)'}}>
                     <div className="card-body d-flex justify-content-between align-items-center">
                         <h5 className="card-title fontRegular m-0">{building.address}</h5>
                         <a className='text-white align-items-center justify-content-center text-decoration-none' href={building.addressLink}><GeoAlt className='fs-1'/></a>

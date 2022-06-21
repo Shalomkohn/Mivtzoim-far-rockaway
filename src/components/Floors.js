@@ -10,32 +10,26 @@ import { collection, orderBy, query, getDocs} from "firebase/firestore";
 
 
 const Floors = (props) => {
+    let {buildingNumber} = useParams()
     const navigate = useNavigate();
     const [floors, setFloors] = useState([])
-    const [doorsForTotal, setDoorsForTotal] = useState([])
+    const [address, setAddress] = useState(null)
+    const [isLoading, setIsLoading] = useState(false)
 
-    let {buildingNumber} = useParams()
-
-    // useEffect(() => {
-    //     //add()
-    //     const q = query(collection(db, "buildings", buildingNumber, "floors" ),orderBy("floorNumber","asc"))
-    //     const unsub = onSnapshot(q,(snapshot) => {setFloors(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))})
-
-    //     return unsub;
-    // },[])
 
     useEffect(() => {
-        getFloorsStep1()
+        getFloors()
     },[])
     
-    const getFloorsStep1 = async () => {    
+    const getFloors = async () => {    
+        setIsLoading(true)
         let floorArray = []
-
         const querySnapshot = await getDocs(query(collection(db, "buildings", buildingNumber, "floors"), orderBy("floorNumber","asc")));
         querySnapshot.forEach((doc) => floorArray.push(doc.data()));
         
+        setIsLoading(false)
         setFloors(floorArray)
-
+        setAddress(floorArray[0].address)
     }
     
 
@@ -45,7 +39,7 @@ const Floors = (props) => {
 
         jay.unshift(<ListGroup.Item onClick={()=> {navigate(`floors/${floor.floorNumber}`)}} key={floor.floorNumber} className="d-flex justify-content-between">
                 {floor.name}
-                <div>{floor.jewsCount != 0 && floor.jewsCount}</div>
+                {floor.jewsCount != 0 && <div style={{border: '1px solid rgb(100, 255, 0)', color: 'rgb(100, 255, 0)'}} className="btn btn-sm py-0">{floor.jewsCount}</div>}
             </ListGroup.Item>
         );
     })
@@ -63,13 +57,17 @@ const Floors = (props) => {
                 <ArrowLeftShort size={25} /> 
                 <div>Buildings</div>
             </Button>
-
-            <ListGroup className="pt-3 m-auto"  style={{maxWidth: "600px"}}>
-                <ListGroup.Item className="display-5 text-center bg-light">{props.buildings[buildingNumber].address}</ListGroup.Item>
-                <div>
-                    {jay}
-                </div>    
-            </ListGroup>
+            {
+                isLoading ? <div className="container text-center mt-4"><h3>Loading...</h3></div>
+                : 
+                 <ListGroup className="pt-3 m-auto"  style={{maxWidth: "600px"}}>
+                    <ListGroup.Item className="display-5 text-center bg-light">{address}</ListGroup.Item>
+                    <div>
+                        {jay}
+                    </div>    
+                </ListGroup>
+            }
+           
         </div>      
     )
 }
