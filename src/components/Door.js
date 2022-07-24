@@ -81,9 +81,9 @@ const Door = ({countJews, doorObj, floorNumber, buildingNumber}) => {
 {/* Card ====================================================================================================================== */}
             <Col xs={12} md={6} className="mb-2">
                 <div className="rounded-3 shadow bg-light mx-auto" style={{maxWidth: '400px'}}>
-                    <div className="d-flex justify-content-between align-items-center mx-3" style={{height: '45px'}}>
+                    <div className="d-flex justify-content-around align-items-center" style={{height: '45px'}}>
                         <div className="fs-2 m-0 d-flex justify-content-center" style={{width: '25px'}}>{doorObj.name}</div>
-                        <div className='fw-light text-end pe-2 lh-sm' style={{width: '70px', fontSize: '10px', color: '#AAA'}}>{doorObj.lastUpdated}</div>
+                        <div className='fw-light text-end pe-2 lh-sm' style={{width: '60px', fontSize: '10px', color: '#AAA'}}>{doorObj.lastUpdated}</div>
                         <h6 className="m-0 p-1 d-flex justify-content-center fw-light rounded-1" style={{width: '83px',backgroundColor: bgColor, color: color, fontSize: '15px'}}>{doorObj.jewish}</h6>
                         <DropdownBotton className='dropdown-for-updating' variant='light' key={doorObj.name} title='Update'>
                             <Dropdown.Item className='text-center' onClick={()=> {
