@@ -10,7 +10,7 @@ function NextFloorBtn(props) {
     const navigate = useNavigate();
   if(props.floorNumber <= 1) return <div className='mb-2'>You finished, Congradulations!</div>
   return (
-      <Button className='d-flex justify-content-center align-items-center btn-light border border-secondary btn-sm' onClick={()=> {
+      <Button className='d-flex justify-content-center align-items-center btn-light border btn-sm border shadow-sm' onClick={()=> {
           navigate(`/buildings/${props.buildingNumber}/floors/${props.floorNumber - 1}`);
           window.scrollTo(0, 0);
       }}>

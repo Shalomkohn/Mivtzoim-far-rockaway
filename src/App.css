@@ -15,9 +15,15 @@
     animation: anim 0.3s ease-out;
 }
 
-@keyframes anim {
-    100% {
-        transform: scale(1.04, 1.5);
-        opacity: 0.3;
-    }
+/* only way to target the button of dropdown menu */
+.dropdown-for-updating .dropdown-toggle {
+    border: 1px solid #999;
+    padding: 0px 10px;
+    border-radius: 5px;
+    color: #555;
 }
+
+.shadow-effect {
+    filter: drop-shadow(0px 1px 1px #C0C0C0);
+}
+

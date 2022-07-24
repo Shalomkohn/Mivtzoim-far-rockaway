@@ -6,20 +6,21 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { PencilSquare } from 'react-bootstrap-icons';
+import { JournalText } from 'react-bootstrap-icons';
 import React, { useState, useEffect} from 'react';
-import db from "../firebase"
+import db from "../firebase";
 import { doc, updateDoc} from "firebase/firestore";
 
 
 const Door = ({countJews, doorObj, floorNumber, buildingNumber}) => {
-    const [color, setColor] = useState('bg-secondary')
-    const [noteChanges, setNoteChanges] = useState(doorObj.notes)
+    const [bgColor, setBgColor] = useState('#CCC');
+    const [color, setColor] = useState('#777');
+    const [noteChanges, setNoteChanges] = useState(doorObj.notes);
     const [show, setShow] = useState(false);
     const [animation, setAnimation] = useState(null);
-    const [dropConfetti, setDropConfetti] = useState(false)
-    const buttonValue = doorObj.notes ? 'Notes' : '+ Note';
-    const buttonVariant = doorObj.notes ? 'warning' : 'light';
-
+    const buttonValue = doorObj.notes ? <JournalText/> : <PencilSquare/>;
+    const buttonVariant = doorObj.notes ? 'blue' : '#777';
 
     const handleShow = () => setShow(true);
     
@@ -30,29 +31,26 @@ const Door = ({countJews, doorObj, floorNumber, buildingNumber}) => {
         updateDoc(docRef, payload)
     }
 
-    useEffect(()=>{if(doorObj.jewish == 'jewish'){
-                setColor('rgb(100, 255, 0)')
-            }else if(doorObj.jewish == 'unknown'){
-                setColor('#f8f9fa')
-            }else if(doorObj.jewish == 'not jewish'){
-                setColor('rgba(255, 0, 74, 0.4)')
+    useEffect(()=>{
+            if(doorObj.jewish == 'Jewish'){
+                setBgColor('#05CFA5')
+                setColor('#777')
+            }else if(doorObj.jewish == 'Unknown'){
+                setBgColor('#CCC')
+                setColor('#777')
+            }else if(doorObj.jewish == 'Not Jewish'){
+                setBgColor('#555')
+                setColor('#BBB')
             }}
     ,[doorObj])
 
     const updateJewish = (data) => {
+        const date = new Date();
+        const dateString = `${date.toLocaleString('default', { month: 'long' })} ${date.getFullYear()}`;
         const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber, "doors", doorObj.id)
-        const payload = {jewish: data}
+        const payload = {jewish: data, lastUpdated: dateString}
         updateDoc(docRef, payload)
         countJews()
-
-        if(data == 'jewish'){
-            setAnimation('jewishAnimate')
-            setDropConfetti(true)
-        }else {
-            setAnimation(null)
-            setDropConfetti(false)
-        }
-        
     }
 
    
@@ -81,28 +79,28 @@ const Door = ({countJews, doorObj, floorNumber, buildingNumber}) => {
             </Modal>
 
 {/* Card ====================================================================================================================== */}
-            <Col xs={12} md={6} lg={4} className="mb-4">
-                <Card className='shadow-sm m-2'>
-                    <h6 style={{backgroundColor: color}} className="p-1 m-0 border-bottom">{doorObj.jewish}</h6>
-                    <h6 style={{backgroundColor: color}} className={`${animation} isJewishAnnimation p-1 m-0 position-absolute w-100`}>{doorObj.jewish}</h6>
-                    <div className="p-1 d-flex justify-content-between align-items-center bg-light">
-                        <Button className='border' variant={buttonVariant} onClick={handleShow}>
-                            {buttonValue}
-                        </Button>
-                        <h1 className='m-0 d-block h-100'>{doorObj.name}</h1>  
-                        <DropdownBotton className='border' variant='light' key={doorObj.name} title='Update'>
+            <Col xs={12} md={6} className="mb-2">
+                <div className="rounded-3 shadow bg-light mx-auto" style={{maxWidth: '400px'}}>
+                    <div className="d-flex justify-content-between align-items-center mx-3" style={{height: '45px'}}>
+                        <div className="fs-2 m-0 d-flex justify-content-center" style={{width: '25px'}}>{doorObj.name}</div>
+                        <div className='fw-light text-end pe-2 lh-sm' style={{width: '70px', fontSize: '10px', color: '#AAA'}}>{doorObj.lastUpdated}</div>
+                        <h6 className="m-0 p-1 d-flex justify-content-center fw-light rounded-1" style={{width: '83px',backgroundColor: bgColor, color: color, fontSize: '15px'}}>{doorObj.jewish}</h6>
+                        <DropdownBotton className='dropdown-for-updating' variant='light' key={doorObj.name} title='Update'>
                             <Dropdown.Item className='text-center' onClick={()=> {
-                                updateJewish('not jewish')
+                                updateJewish('Not Jewish')
                             }} eventKey="1">Not Jewish</Dropdown.Item>
                             <Dropdown.Item className='text-center' onClick={()=> {
-                                updateJewish('unknown')
+                                updateJewish('Unknown')
                             }} eventKey="2">Unknown</Dropdown.Item>
                             <Dropdown.Item className='text-center' onClick={()=> {
-                                updateJewish('jewish')
+                                updateJewish('Jewish')
                             }} eventKey="3">Jewish</Dropdown.Item>
                         </DropdownBotton>
+                        <div variant={'light'} className={`fs-1 d-flex align-items-center`} style={{color: buttonVariant}} onClick={handleShow}>
+                            {buttonValue}
+                        </div>
                     </div>
-                </Card>
+                </div>
             </Col>
         </>
     )

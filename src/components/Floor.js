@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ArrowLeftShort } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col';
 import Door from './Door'
 import NextFloorBtn from './NextFloorBtn';
 import db from "../firebase"
@@ -33,7 +34,7 @@ const Floor = (props) => {
 
 
     async function countJews() {
-        const querySnapshot = await getDocs(query(collection(db, "buildings", buildingNumber, "floors", floorNumber, 'doors'), where("jewish", "==", "jewish")));
+        const querySnapshot = await getDocs(query(collection(db, "buildings", buildingNumber, "floors", floorNumber, 'doors'), where("jewish", "==", "Jewish")));
 
         const docRef = doc(db, "buildings", buildingNumber, "floors", floorNumber)
         const payload = {jewsCount: querySnapshot.size}
@@ -63,28 +64,34 @@ const Floor = (props) => {
 
 
     return (
-        <section className='py-4'>
-            <Container>
+        <section className='py-4' >
+            <Container  style={{minHeight: '100vh'}}>
                 <Container className="mb-3 text-center">
                     <div className="d-flex justify-content-between mb-4 align-items-center">
-                        <Button  className='btn-light btn-sm border border-secondary d-flex align-items-center' onClick={() => navigate(`/buildings/${buildingNumber}`)}>
+                        <Button  className='btn-light btn-sm border shadow-sm d-flex align-items-center' onClick={() => navigate(`/buildings/${buildingNumber}`)}>
                             <ArrowLeftShort size={25}/>
                             <div>Floors</div>
                         </Button>
                         <div className="display-1 me-3">{`Floor ${floorNumber}`}</div>
-                        <div className="d-none d-lg-block">
+                        <div className="d-none d-md-block">
                             <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
                         </div>
                     </div>
                     {/* <Card body className="display-4 my-4 bg-light">{`Floor ${floorNumber}`}</Card> */}
+                    {isLoading ? <div className="container text-center my-4">
+                        <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
+                    </div> :
                     <Row>
-                        {isLoading && <div className="container text-center my-4"><h3>Loading...</h3></div>}
                         {doorAray}
+                        <Col>
+                        <div className='d-grid d-md-none mt-4 mx-auto p-0' style={{maxWidth: '400px'}}>
+                            <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
+                        </div>
+                        </Col>
                     </Row>
-
-                    <div className='d-grid d-lg-none'>
-                        <NextFloorBtn buildingNumber={buildingNumber} floorNumber={floorNumber}/>
-                    </div>
+                    }
                 </Container>  
             </Container>
         </section>

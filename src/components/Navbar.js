@@ -39,7 +39,7 @@ const Navbar = () => {
     
     return (
         <>
-            <nav className="navbar navbar-light bg-light fixed-top border-bottom border-primary ">
+            <nav className="navbar navbar-light bg-light fixed-top border-bottom border-secondary p-0">
                 <div className="container">
                     <Link className="navbar-brand" to="/"><span style={{fontFamily: 'georgia'}}>M</span>eevo</Link>
                     <ul className="navbar-nav me-auto">
@@ -61,7 +61,7 @@ const Navbar = () => {
             </nav>
 
             {/* to push down */}
-            <nav className="navbar border-bottom">
+            <nav className="navbar border-bottom border-light p-0">
                 <div className="container">
                     <a className="navbar-brand text-light" href="#">Meevo</a>
                     <span className="navbar-text text-light">

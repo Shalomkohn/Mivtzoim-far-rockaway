@@ -39,7 +39,7 @@ const Floors = (props) => {
 
         jay.unshift(<ListGroup.Item onClick={()=> {navigate(`floors/${floor.floorNumber}`)}} key={floor.floorNumber} className="d-flex justify-content-between">
                 {floor.name}
-                {floor.jewsCount != 0 && <div style={{border: '1px solid rgb(100, 255, 0)', color: 'rgb(100, 255, 0)'}} className="btn btn-sm py-0">{floor.jewsCount}</div>}
+                {floor.jewsCount != 0 && <div className="btn btn-sm py-0 fw-light text-secondary">{floor.jewsCount + ' ' + 'Jews'}</div>}
             </ListGroup.Item>
         );
     })
@@ -52,20 +52,29 @@ const Floors = (props) => {
     
 
     return (
-        <div className="container py-3">
-            <Button className="d-flex align-items-center" style={{backgroundColor: 'rgb(3, 165, 252)', border: 'none'}} onClick={()=>  navigate('/')}>
-                <ArrowLeftShort size={25} /> 
-                <div>Buildings</div>
-            </Button>
+        <div className="container py-4" style={{minHeight: '100vh'}}>
+
             {
-                isLoading ? <div className="container text-center mt-4"><h3>Loading...</h3></div>
+                isLoading ? 
+                <div className="container text-center mt-4">
+                    <div className="spinner-border" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>
+                </div>
                 : 
-                 <ListGroup className="pt-3 m-auto"  style={{maxWidth: "600px"}}>
-                    <ListGroup.Item className="display-5 text-center bg-light">{address}</ListGroup.Item>
-                    <div>
-                        {jay}
-                    </div>    
-                </ListGroup>
+                <div className="w-75 mx-auto" style={{maxWidth: "600px"}}>
+                    <div className="fw-normal fs-3 text-center bg-light d-flex justify-content-between">
+                        <Button className="d-flex align-items-center btn-light btn-sm border shadow-sm" onClick={()=>  navigate('/')}>
+                            <ArrowLeftShort size={25} /> 
+                        </Button>
+                        <div>{address}</div>
+                    </div>
+                    <ListGroup className="mt-3 shadow-sm">
+                        <div>
+                            {jay}
+                        </div>    
+                    </ListGroup>
+                </div>
             }
            
         </div>      
